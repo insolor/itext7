@@ -678,22 +678,35 @@ public class PdfPKCS7 {
         externalDigest = digest;
         externalRsaData = rsaData;
         if (digestEncryptionAlgorithm != null) {
-            if (digestEncryptionAlgorithm.equals("RSA")) {
-                this.digestEncryptionAlgorithmOid = SecurityIDs.ID_RSA;
-            } else if (digestEncryptionAlgorithm.equals("DSA")) {
-                this.digestEncryptionAlgorithmOid = SecurityIDs.ID_DSA;
-            } else if (digestEncryptionAlgorithm.equals("ECDSA")) {
-                this.digestEncryptionAlgorithmOid = SecurityIDs.ID_ECDSA;
-            } else if (digestEncryptionAlgorithm.equals("GOST3410_2012_256")) {
-                this.digestEncryptionAlgorithmOid = SecurityIDs.ID_GOST3410_2012_256;
-            } else if (digestEncryptionAlgorithm.equals("GOST3410DH_2012_256")) {
-                this.digestEncryptionAlgorithmOid = SecurityIDs.ID_GOST3410DH_2012_256;
-            } else if (digestEncryptionAlgorithm.equals("GOST3410_2012_512")) {
-                this.digestEncryptionAlgorithmOid = SecurityIDs.ID_GOST3410_2012_512;
-            } else if (digestEncryptionAlgorithm.equals("GOST3410DH_2012_512")) {
-                this.digestEncryptionAlgorithmOid = SecurityIDs.ID_GOST3410DH_2012_512;
-            } else
-                throw new PdfException(PdfException.UnknownKeyAlgorithm1).setMessageParams(digestEncryptionAlgorithm);
+            switch (digestEncryptionAlgorithm) {
+                case "RSA":
+                    this.digestEncryptionAlgorithmOid = SecurityIDs.ID_RSA;
+                    break;
+                case "DSA":
+                    this.digestEncryptionAlgorithmOid = SecurityIDs.ID_DSA;
+                    break;
+                case "ECDSA":
+                    this.digestEncryptionAlgorithmOid = SecurityIDs.ID_ECDSA;
+                    break;
+                case "GOST3410_2012_256":
+                case "GOST3410-2012-256":
+                    this.digestEncryptionAlgorithmOid = SecurityIDs.ID_GOST3410_2012_256;
+                    break;
+                case "GOST3410DH_2012_256":
+                case "GOST3410DH-2012-256":
+                    this.digestEncryptionAlgorithmOid = SecurityIDs.ID_GOST3410DH_2012_256;
+                    break;
+                case "GOST3410_2012_512":
+                case "GOST3410-2012-512":
+                    this.digestEncryptionAlgorithmOid = SecurityIDs.ID_GOST3410_2012_512;
+                    break;
+                case "GOST3410DH_2012_512":
+                case "GOST3410DH-2012-512":
+                    this.digestEncryptionAlgorithmOid = SecurityIDs.ID_GOST3410DH_2012_512;
+                    break;
+                default:
+                    throw new PdfException(PdfException.UnknownKeyAlgorithm1).setMessageParams(digestEncryptionAlgorithm);
+            }
         }
     }
 
